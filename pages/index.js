@@ -1,7 +1,5 @@
+import Layout from '../components/Layout';
+
 export default function Home() {
-  return (
-    <div className='bg-red-500'>
-      <h1>Hello</h1>
-    </div>
-  );
+  return <Layout title='Feed | LinkedIn'>Home</Layout>;
 }
