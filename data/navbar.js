@@ -1,6 +1,7 @@
 import Briefcase from '../components/icon/BriefCase';
 import Grid from '../components/icon/Grid';
 import Home from '../components/icon/Home';
+import Learning from '../components/icon/linkedin-product/Learning';
 import Message from '../components/icon/Message';
 import Notification from '../components/icon/Notification';
 import Users from '../components/icon/Users';
@@ -102,4 +103,88 @@ const navbarMenu = [
   },
 ];
 
-export { navbarMenu };
+const linkedinProduct = [
+  {
+    id: 1,
+    title: 'Learning',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 2,
+    title: 'Wawasan',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 3,
+    title: 'posting Pekerjaan',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 4,
+    title: 'Pasang Iklan',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 5,
+    title: 'Temukan Prospek',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 6,
+    title: 'Groups',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 7,
+    title: 'Marketplace Layanan',
+    url: '/',
+    icon: Learning,
+  },
+  {
+    id: 8,
+    title: 'Gaji',
+    url: '/',
+    icon: Learning,
+  },
+];
+
+const linkedinBusiness = [
+  {
+    id: 1,
+    title: 'Solusi Bakat',
+    description: 'Temukan, tarik perhatian, dan rekrut kandidat berkualitas',
+    url: '/',
+  },
+  {
+    id: 2,
+    title: 'Solusi Penjualan',
+    description: 'Menemukan peluang penjualan',
+    url: '/',
+  },
+  {
+    id: 3,
+    title: 'Posting pekerjaan gratis',
+    description: 'Pastikan posting pekerjaan Anda dilihat oleh kandidat terbaik',
+    url: '/',
+  },
+  {
+    id: 4,
+    title: 'Solusi Pemasaran',
+    description: 'Dapatkan pelanggan dan kembangkan bisnis Anda',
+    url: '/',
+  },
+  {
+    id: 5,
+    title: 'Solusi Pembelajaran',
+    description: 'Kembangkan keahlian di seluruh bagian organisasi Anda',
+    url: '/',
+  },
+];
+
+export { navbarMenu, linkedinProduct, linkedinBusiness };
