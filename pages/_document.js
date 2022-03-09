@@ -23,7 +23,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
-        <body className='bg-[#f3f2ef] overflow-x-hidden'>
+        <body className='bg-[#f3f2ef]'>
           <Main />
           <NextScript />
         </body>

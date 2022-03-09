@@ -21,7 +21,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='w-full h-[52px] bg-white px-3 shadow-sm sm:px-6 relative z-40'>
+      <div className='w-full h-[52px] sticky top-0 bg-white px-3 shadow-sm sm:px-6 z-40'>
         <div className='h-full xl:w-[1128px] mx-auto flex items-center justify-between'>
           <div className='flex items-center space-x-2'>
             <LinkedIn />
