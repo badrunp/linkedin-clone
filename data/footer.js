@@ -51,14 +51,14 @@ const footerAuthMenuItem = [
     url: '/signin',
   },
   {
-    id: 7,
+    id: 8,
     title: 'Kirim Feedback',
     icon: null,
     dropdown: null,
     url: '/signin',
   },
   {
-    id: 8,
+    id: 9,
     title: 'Bahasa',
     icon: null,
     dropdown: true,

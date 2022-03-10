@@ -4,30 +4,33 @@ import Link from 'next/link';
 import Google from '../components/icon/Google';
 import AuthInput from '../components/AuthInput';
 
-const Signin = () => {
+const Anchor = ({ children }) => {
+  return (
+    <span className='inline-block text-[#0a66c2] hover:underline cursor-pointer'>{children}</span>
+  );
+};
+
+const Signup = () => {
   return (
     <div className='px-8 bg-white'>
-      <div className='w-full h-[66px] flex items-end pb-2 md:px-14'>
-        <Linkedintext className='w-[110px] h-[28px]' />
+      <div className='w-full h-[66px] flex justify-center items-end pb-2 md:px-14'>
+        <Linkedintext className='w-[135px] h-[33px]' />
       </div>
+      <h4 className='block text-[32px] text-gray-800 text-center mb-4 mt-2'>
+        Dapatkan manfaat maksimal dari dunia profesional Anda
+      </h4>
       <div className='bg-white sm:w-[352px] md:rounded-xl md:shadow-lg mx-auto md:p-6 md:ring-1 md:ring-zinc-200'>
-        <div className='flex flex-col'>
-          <h2 className='block text-[32px] text-gray-800 font-semibold'>Login</h2>
-          <p className='block text-gray-700 text-sm'>
-            Ikuti perkembangan terbaru dari dunia profesional Anda
-          </p>
-        </div>
         <div className='space-y-4 mt-6'>
-          <AuthInput label='Email atau Nomor Telepon' />
+          <AuthInput label='Email atau Nomor Ponsel' />
           <AuthInput label='Kata Sandi' type='password' password />
-          <Link href={'/signup'}>
-            <a className='block w-max -ml-1 font-semibold text-[#0a66c2] hover:underline px-2 py-1 rounded-full hover:bg-blue-200'>
-              Lupa Kata sandi?
-            </a>
-          </Link>
+          <p className='block text-gray-700 text-xs text-center'>
+            Dengan mengeklik Setuju & Bergabung, Anda menyetujui{' '}
+            <Anchor>Perjanjian Pengguna</Anchor>,<Anchor>Kebijakan Privasi</Anchor>, dan{' '}
+            <Anchor>Kebijakan Cookie</Anchor> LinkedIn.
+          </p>
           <div className='flex flex-col space-y-3'>
             <button className='block w-full py-3 focus:outline-none bg-[#0a66c2] rounded-full font-semibold text-white'>
-              Login
+              Setuju & bergabung
             </button>
             <div className='flex items-center justify-center space-x-4'>
               <div className='h-[1px] bg-gray-400 w-full flex-grow-0' />
@@ -41,10 +44,10 @@ const Signin = () => {
           </div>
         </div>
       </div>
-      <div className='flex items-center justify-center space-x-2 mt-8'>
-        <p className='block text-gray-700'>Baru Bergabung di LinkedIn?</p>
-        <Link href={'/signup'}>
-          <a className='block font-semibold text-blue-600'>Bergabung sekarang</a>
+      <div className='flex items-center justify-center space-x-2 mt-8 mb-8 md:mb-0'>
+        <p className='block text-gray-700'>Sudah Bergabung di LinkedIn?</p>
+        <Link href={'/signin'}>
+          <a className='block font-semibold text-blue-600'>Login</a>
         </Link>
       </div>
       <FooterAuth />
@@ -52,4 +55,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
