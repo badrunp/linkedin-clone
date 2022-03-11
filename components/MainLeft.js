@@ -103,8 +103,8 @@ const MainLeft = () => {
           onClick={() => setIsInfo(!isInfo)}
           className='md:hidden py-1 text-gray-500 flex items-center justify-center text-center w-full mx-auto focus:ouline-none text-sm font-semibold'
         >
-          <span>Lihat Selengkapnya</span>
-          <ChevronDown className='w-5 h-5' />
+          <span>{isInfo ? 'Lihat lebih sedikit' : 'Lihat Selengkapnya'}</span>
+          <ChevronDown className={`${isInfo && 'rotate-180'} w-5 h-5`} />
         </button>
       </div>
     </div>

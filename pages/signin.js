@@ -27,8 +27,8 @@ const Signin = () => {
   return (
     <div className='px-8 bg-white min-h-screen flex flex-col justify-center'>
       <Link href='/'>
-        <a className='w-full h-[66px] flex items-center md:items-end pb-2 md:px-14'>
-          <Linkedintext className='w-[110px] h-[28px]' />
+        <a className='w-full h-[66px] flex items-center justify-center md:justify-start md:items-end pb-2 md:px-14'>
+          <Linkedintext className='w-[135px] h-[33px] md:w-[110px] md:h-[28px]' />
         </a>
       </Link>
       <div className='bg-white sm:w-[352px] md:rounded-xl md:shadow-lg mx-auto md:p-6 md:ring-1 md:ring-zinc-200'>
