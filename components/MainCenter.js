@@ -66,6 +66,10 @@ const MainCenter = () => {
         </div>
 
         <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
+        <PostCard />
       </div>
     </div>
   );

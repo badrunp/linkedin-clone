@@ -4,7 +4,7 @@ import CarretDown from './icon/CarretDown';
 
 const NavbarMenuItem = ({ item }) => {
   return (
-    <Link href={'/'}>
+    <Link href={item.url}>
       <a
         className={` ${
           item.id > 3 ? 'hidden sm:flex flex-col items-center' : 'flex flex-col items-center'

@@ -16,13 +16,13 @@ const navbarMenu = [
   {
     id: 2,
     title: 'Jaringan Saya',
-    url: '/',
+    url: '/signup',
     icon: Users,
   },
   {
     id: 3,
     title: 'Pekerjaan',
-    url: '/',
+    url: '/signin',
     icon: Briefcase,
   },
   {
