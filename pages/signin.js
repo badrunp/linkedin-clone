@@ -4,9 +4,16 @@ import Link from 'next/link';
 import Google from '../components/icon/Google';
 import AuthInput from '../components/AuthInput';
 import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useRouter } from 'next/router';
+import { useAuth } from '../hooks/authContext';
 
 const Signin = () => {
-  const [user, setUser] = useState({
+  const router = useRouter();
+  const { user, loading } = useAuth('guest');
+
+  const [data, setData] = useState({
     email: '',
     password: '',
   });
@@ -15,14 +22,22 @@ const Signin = () => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setUser({ ...user, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(user);
+    try {
+      const userLogin = await signInWithEmailAndPassword(auth, data.email, data.password);
+      router.replace('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (!loading && user) router.replace('/');
 
   return (
     <div className='px-8 bg-white min-h-screen flex flex-col justify-center'>
@@ -38,13 +53,13 @@ const Signin = () => {
             Ikuti perkembangan terbaru dari dunia profesional Anda
           </p>
         </div>
-        <div className='space-y-4 mt-6'>
-          <AuthInput label='Email' name='email' value={user.email} onChange={handleChange} />
+        <form onSubmit={handleSubmit} className='space-y-4 mt-6'>
+          <AuthInput label='Email' name='email' value={data.email} onChange={handleChange} />
           <AuthInput
             label='Kata Sandi'
             type='password'
             name='password'
-            value={user.password}
+            value={data.password}
             onChange={handleChange}
             password={true}
           />
@@ -54,7 +69,10 @@ const Signin = () => {
             </a>
           </Link>
           <div className='flex flex-col space-y-3'>
-            <button className='block w-full py-3 focus:outline-none bg-[#0a66c2] rounded-full font-semibold text-white'>
+            <button
+              onClick={handleSubmit}
+              className='block w-full py-3 focus:outline-none bg-[#0a66c2] rounded-full font-semibold text-white'
+            >
               Login
             </button>
             <div className='flex items-center justify-center space-x-4'>
@@ -67,7 +85,7 @@ const Signin = () => {
               <span className='block'>Login dengan Google</span>
             </button>
           </div>
-        </div>
+        </form>
       </div>
       <div className='mt-8 text-center'>
         <p className='inline-block text-gray-700 mr-1'>Baru Bergabung di LinkedIn?</p>

@@ -187,4 +187,52 @@ const linkedinBusiness = [
   },
 ];
 
-export { navbarMenu, linkedinProduct, linkedinBusiness };
+const MainRightMenuItem = [
+  {
+    id: 1,
+    title: 'Tentang',
+    url: '/',
+  },
+  {
+    id: 2,
+    title: 'Aksesibilitas',
+    url: '/',
+  },
+  {
+    id: 3,
+    title: 'Pusat Bantuan',
+    url: '/',
+  },
+  {
+    id: 4,
+    title: 'Privasi & Ketentuan',
+    url: '/',
+  },
+  {
+    id: 5,
+    title: 'Opsi Iklan',
+    url: '/',
+  },
+  {
+    id: 6,
+    title: 'Periklanan',
+    url: '/',
+  },
+  {
+    id: 7,
+    title: 'Layanan Bisnis',
+    url: '/',
+  },
+  {
+    id: 8,
+    title: 'Dapatkan Aplikasi linkedIn',
+    url: '/',
+  },
+  {
+    id: 9,
+    title: 'Lainnya',
+    url: '/',
+  },
+];
+
+export { navbarMenu, linkedinProduct, linkedinBusiness, MainRightMenuItem };

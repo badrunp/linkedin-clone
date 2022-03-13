@@ -1,5 +1,7 @@
+import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { navbarMenu } from '../data/navbar';
+import { auth } from '../firebase';
 import CarretDown from './icon/CarretDown';
 
 const NavbarMenuItem = ({ item }) => {
@@ -108,6 +110,9 @@ const NavbarMobileButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSi
 };
 
 const NavbarDropdownMenuItem = ({ item }) => {
+  const handleSignout = () => {
+    signOut(auth);
+  };
   return item.url != null ? (
     <Link href={item.url}>
       <a className='block py-1 text-sm text-gray-500 hover:underline'>{item.title}</a>
@@ -115,7 +120,10 @@ const NavbarDropdownMenuItem = ({ item }) => {
   ) : (
     <div className='border-t pt-2 mt-1'>
       {item.button ? (
-        <button className='block text-left w-full text-sm focus:outline-none text-gray-500 hover:underline'>
+        <button
+          onClick={handleSignout}
+          className='block text-left w-full text-sm focus:outline-none text-gray-500 hover:underline'
+        >
           {item.title}
         </button>
       ) : (

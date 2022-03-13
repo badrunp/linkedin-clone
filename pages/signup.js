@@ -4,6 +4,10 @@ import Link from 'next/link';
 import Google from '../components/icon/Google';
 import AuthInput from '../components/AuthInput';
 import { useState } from 'react';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useRouter } from 'next/router';
+import { useAuth } from '../hooks/authContext';
 
 const Anchor = ({ children }) => {
   return (
@@ -12,7 +16,10 @@ const Anchor = ({ children }) => {
 };
 
 const Signup = () => {
-  const [user, setUser] = useState({
+  const router = useRouter();
+  const { user, loading } = useAuth();
+
+  const [data, setData] = useState({
     email: '',
     password: '',
   });
@@ -21,14 +28,22 @@ const Signup = () => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setUser({ ...user, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(user);
+    try {
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      router.push('/signin');
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  if (loading) return <div>Loading...</div>;
+  if (!loading && user) router.replace('/');
 
   return (
     <div className='px-8 bg-white min-h-screen flex flex-col justify-center'>
@@ -42,12 +57,12 @@ const Signup = () => {
       </h4>
       <div className='bg-white sm:w-[352px] md:rounded-xl md:shadow-lg mx-auto md:p-6 md:ring-1 md:ring-zinc-200'>
         <form onSubmit={handleSubmit} className='space-y-4 mt-6'>
-          <AuthInput label='Email' name='email' value={user.email} onChange={handleChange} />
+          <AuthInput label='Email' name='email' value={data.email} onChange={handleChange} />
           <AuthInput
             label='Kata Sandi'
             type='password'
             name='password'
-            value={user.password}
+            value={data.password}
             onChange={handleChange}
             password={true}
           />
