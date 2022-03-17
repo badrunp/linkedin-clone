@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import Link from 'next/link';
 import { navbarMenu } from '../data/navbar';
 import { auth } from '../firebase';
+import { useAuth } from '../hooks/authContext';
 import CarretDown from './icon/CarretDown';
 
 const NavbarMenuItem = ({ item }) => {
@@ -110,8 +111,10 @@ const NavbarMobileButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSi
 };
 
 const NavbarDropdownMenuItem = ({ item }) => {
+  const { setUser } = useAuth();
   const handleSignout = () => {
     signOut(auth);
+    setUser(null);
   };
   return item.url != null ? (
     <Link href={item.url}>

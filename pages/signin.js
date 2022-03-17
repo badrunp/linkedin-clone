@@ -4,14 +4,14 @@ import Link from 'next/link';
 import Google from '../components/icon/Google';
 import AuthInput from '../components/AuthInput';
 import { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
 import { useRouter } from 'next/router';
 import { useAuth } from '../hooks/authContext';
 
 const Signin = () => {
   const router = useRouter();
-  const { user, loading } = useAuth('guest');
+  const { user, loading } = useAuth();
 
   const [data, setData] = useState({
     email: '',
@@ -29,7 +29,16 @@ const Signin = () => {
     e.preventDefault();
 
     try {
-      const userLogin = await signInWithEmailAndPassword(auth, data.email, data.password);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
+      router.replace('/');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSigninWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
       router.replace('/');
     } catch (error) {
       console.log(error);
@@ -80,7 +89,10 @@ const Signin = () => {
               <span className='block text-sm text-gray-500'>atau</span>
               <div className='h-[1px] bg-gray-400 w-full flex-grow-0' />
             </div>
-            <button className='w-full border border-gray-500 py-3 focus:outline-none rounded-full font-semibold text-gray-500 flex space-x-2 justify-center'>
+            <button
+              onClick={handleSigninWithGoogle}
+              className='w-full border border-gray-500 py-3 focus:outline-none rounded-full font-semibold text-gray-500 flex space-x-2 justify-center'
+            >
               <Google />
               <span className='block'>Login dengan Google</span>
             </button>

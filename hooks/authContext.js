@@ -13,21 +13,28 @@ export const AuthProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        if (router.pathname === '/signin' || router.pathname === '/signup') {
-          await router.replace('/');
+    if (!user) {
+      onAuthStateChanged(auth, async (userLogin) => {
+        if (userLogin) {
+          setUser({
+            uid: userLogin.uid,
+            email: userLogin.email,
+          });
+          if (router.pathname === '/signin' || router.pathname === '/signup') {
+            await router.replace('/');
+            return;
+          }
+        } else {
+          setUser(null);
+          if (router.pathname != '/signin' && router.pathname != '/signup') {
+            await router.replace('/signin');
+            return;
+          }
         }
-      } else {
-        setUser(null);
-        if (router.pathname != '/signin' && router.pathname != '/signup') {
-          await router.replace('/signin');
-        }
-      }
-      setLoading(false);
-    });
-  }, [router]);
+        setLoading(false);
+      });
+    }
+  }, [router, user]);
 
   return <AuthContext.Provider value={{ user, setUser, loading }}>{children}</AuthContext.Provider>;
 };
