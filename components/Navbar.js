@@ -1,4 +1,5 @@
 import { navbarMenu } from '../data/navbar';
+import { useAuth } from '../hooks/authContext';
 import DropdownState from '../hooks/DropdownState';
 import DotsHorizontal from './icon/DotsHorizontal';
 import LinkedIn from './icon/Linkedin';
@@ -18,6 +19,7 @@ const Navbar = () => {
   const [mobileMenu, mobileMenuOpen, __, mobileMenuRef] = DropdownState('mobile');
   const [dropdownAuth, dropdownAuthOpen, _, dropdownAuthRef] = DropdownState();
   const [sidebar, sidebarOpen, sidebarClose, sidebarRef] = DropdownState();
+  const { user } = useAuth();
 
   return (
     <>
@@ -48,6 +50,7 @@ const Navbar = () => {
                     item={item}
                     handleOpenDropdownAuth={dropdownAuthOpen}
                     handleOpenSidear={sidebarOpen}
+                    src={user?.photo || ''}
                   />
 
                   {item.auth && dropdownAuth && (
@@ -55,7 +58,7 @@ const Navbar = () => {
                       ref={dropdownAuthRef}
                       className='absolute w-[264px] z-20 bg-white top-0 mt-9 sm:mt-12 md:mt-14 right-0 shadow-lg rounded-md p-2 ring-1 ring-gray-200'
                     >
-                      <NavbarDropdownAuthInfo />
+                      <NavbarDropdownAuthInfo src={user?.photo || ''} />
                       <div className='flex flex-col'>
                         {item.children.map((item) => (
                           <NavbarDropdownMenuItem key={item.id} item={item} />
@@ -90,9 +93,10 @@ const Navbar = () => {
                         item={item}
                         handleOpenDropdownAuth={dropdownAuthOpen}
                         handleOpenSidear={sidebarOpen}
+                        src={user?.photo || ''}
                       />
                     ) : (
-                      <NavbarMobileMenuItem key={item.id} item={item} />
+                      <NavbarMobileMenuItem key={item.id} item={item} src={user?.photo || ''} />
                     )
                   )}
               </div>

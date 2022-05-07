@@ -46,7 +46,7 @@ const NavbarMenuItem = ({ item }) => {
   );
 };
 
-const NavbarButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSidear }) => {
+const NavbarButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSidear, src = '' }) => {
   return (
     <button
       onClick={item.auth ? handleOpenDropdownAuth : handleOpenSidear}
@@ -59,7 +59,7 @@ const NavbarButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSidear }
       {item.icon &&
         (item.auth ? (
           <div className='w-6 h-6 rounded-full overflow-hidden'>
-            <img src='/images/profil.jpg' alt='image-profil' />
+            <img src={src} alt='image-profil' />
           </div>
         ) : (
           <item.icon className={`w-6 h-6 text-gray-600'}`} />
@@ -72,14 +72,14 @@ const NavbarButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSidear }
   );
 };
 
-const NavbarMobileMenuItem = ({ item }) => {
+const NavbarMobileMenuItem = ({ item, src = '' }) => {
   return (
     <Link href={'/'}>
       <a className={`flex flex-col items-center justify-center relative h-full px-2 py-5`}>
         {item.icon &&
           (item.auth ? (
             <div className='w-6 h-6 rounded-full overflow-hidden'>
-              <img src='/images/profil.jpg' alt='image-profil' />
+              <img src={src} alt='image-profil' />
             </div>
           ) : (
             <item.icon className={`w-6 h-6text-gray-600`} />
@@ -92,7 +92,12 @@ const NavbarMobileMenuItem = ({ item }) => {
   );
 };
 
-const NavbarMobileButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSidear }) => {
+const NavbarMobileButtonMenuItem = ({
+  item,
+  handleOpenDropdownAuth,
+  handleOpenSidear,
+  src = '',
+}) => {
   return (
     <button
       onClick={item.auth ? handleOpenDropdownAuth : handleOpenSidear}
@@ -101,7 +106,7 @@ const NavbarMobileButtonMenuItem = ({ item, handleOpenDropdownAuth, handleOpenSi
       {item.icon &&
         (item.auth ? (
           <div className='w-6 h-6 rounded-full overflow-hidden'>
-            <img src='/images/profil.jpg' alt='image-profil' />
+            <img src={src} alt='image-profil' />
           </div>
         ) : (
           <item.icon className={`w-6 h-6text-gray-600`} />
@@ -136,12 +141,12 @@ const NavbarDropdownMenuItem = ({ item }) => {
   );
 };
 
-const NavbarDropdownAuthInfo = () => {
+const NavbarDropdownAuthInfo = ({ src = '' }) => {
   return (
     <div className='flex flex-col space-y-2 pb-2'>
       <div className='flex items-center space-x-1'>
         <div className='w-14 h-14 rounded-full overflow-hidden'>
-          <img src='/images/profil.jpg' alt='image-profil' className='object-cover' />
+          <img src={src} alt='image-profil' className='object-cover' />
         </div>
         <div className='flex flex-col'>
           <h4 className='block text-base font-semibold'>Muhammad Badrun</h4>

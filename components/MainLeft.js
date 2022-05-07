@@ -1,11 +1,14 @@
 import Link from 'next/link';
 import { useState } from 'react';
+import { useAuth } from '../hooks/authContext';
 import ChevronDown from './icon/ChevronDown';
 import { Mercado1, Mercado2, Mercado3 } from './icon/Mercado';
 import Plus from './icon/Plus';
 
 const MainLeft = () => {
   const [isInfo, setIsInfo] = useState(false);
+  const { user } = useAuth();
+
   return (
     <div className='flex-none block w-full sm:w-[524px] md:w-[203px] lg:w-[180px] xl:w-[225px]'>
       <div className='flex flex-col space-y-2'>
@@ -14,11 +17,11 @@ const MainLeft = () => {
             <div className='pb-4'>
               <div className='w-full h-14 bg-gray-800'></div>
               <div className='w-[72px] h-[72px] rounded-full overflow-hidden mx-auto border-2 border-white -mt-9'>
-                <img src='/images/profil.jpg' alt='' />
+                <img src={user?.photo} alt={user?.email} />
               </div>
               <div className='flex flex-col text-center mt-5 space-y-1 px-3'>
-                <h4 className='block text-base font-semibold'>Muhammad Badrun</h4>
-                <p className='block text-xs text-gray-500'>Freelancer Web Develover</p>
+                <h4 className='block text-base font-semibold'>{user?.email}</h4>
+                <p className='block text-xs text-gray-500'>---</p>
               </div>
             </div>
             <div className={`${isInfo ? 'block' : 'hidden md:block'} py-4`}>

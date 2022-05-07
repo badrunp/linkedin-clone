@@ -1,7 +1,6 @@
 import FooterAuth from '../components/FooterAuth';
 import Linkedintext from '../components/icon/Linkedintext';
 import Link from 'next/link';
-import Google from '../components/icon/Google';
 import AuthInput from '../components/AuthInput';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -18,6 +17,8 @@ const Anchor = ({ children }) => {
 const Signup = () => {
   const router = useRouter();
   const { user, loading } = useAuth();
+  const [signupLoading, setSignupLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [data, setData] = useState({
     email: '',
@@ -33,12 +34,19 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setSignupLoading(true);
     try {
       await createUserWithEmailAndPassword(auth, data.email, data.password);
-      router.push('/signin');
+      setErrorMessage(null);
+      // router.push('/signin');
     } catch (error) {
       console.log(error);
+      setSignupLoading(false);
+      setErrorMessage(error.message);
+      setData({
+        ...data,
+        password: '',
+      });
     }
   };
 
@@ -57,6 +65,13 @@ const Signup = () => {
       </h4>
       <div className='bg-white sm:w-[352px] md:rounded-xl md:shadow-lg mx-auto md:p-6 md:ring-1 md:ring-zinc-200'>
         <form onSubmit={handleSubmit} className='space-y-4 mt-6'>
+          {errorMessage && (
+            <div className='bg-red-500 px-4 py-4 rounded-md w-full'>
+              <span className='block text-white font-semibold tracking-tight'>
+                {'Masukan email dan password dengan bener!'}
+              </span>
+            </div>
+          )}
           <AuthInput label='Email' name='email' value={data.email} onChange={handleChange} />
           <AuthInput
             label='Kata Sandi'
@@ -72,20 +87,11 @@ const Signup = () => {
             <Anchor>Kebijakan Cookie</Anchor> LinkedIn.
           </p>
           <div className='flex flex-col space-y-3'>
-            <button className='block w-full py-3 focus:outline-none bg-[#0a66c2] rounded-full font-semibold text-white'>
-              Setuju & bergabung
-            </button>
-            <div className='flex items-center justify-center space-x-4'>
-              <div className='h-[1px] bg-gray-400 w-full flex-grow-0' />
-              <span className='block text-sm text-gray-500'>atau</span>
-              <div className='h-[1px] bg-gray-400 w-full flex-grow-0' />
-            </div>
             <button
               onClick={handleSubmit}
-              className='w-full border border-gray-500 py-3 focus:outline-none rounded-full font-semibold text-gray-500 flex space-x-2 justify-center'
+              className='block w-full py-3 focus:outline-none bg-[#0a66c2] rounded-full font-semibold text-white'
             >
-              <Google />
-              <span className='block'>Login dengan Google</span>
+              {signupLoading ? 'Loading...' : 'Setuju & Bergabung'}
             </button>
           </div>
         </form>

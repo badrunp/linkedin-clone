@@ -12,6 +12,8 @@ import { useAuth } from '../hooks/authContext';
 const Signin = () => {
   const router = useRouter();
   const { user, loading } = useAuth();
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const [data, setData] = useState({
     email: '',
@@ -27,21 +29,28 @@ const Signin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoginLoading(true);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      router.replace('/');
+      setErrorMessage(null);
+      // router.replace('/');
     } catch (error) {
-      console.log(error);
+      setLoginLoading(false);
+      setErrorMessage(error.message);
+      setData({
+        ...data,
+        password: '',
+      });
     }
   };
 
-  const handleSigninWithGoogle = async () => {
+  const handleSigninWithGoogle = async (e) => {
+    e.preventDefault();
     try {
       await signInWithPopup(auth, googleProvider);
       router.replace('/');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -62,7 +71,14 @@ const Signin = () => {
             Ikuti perkembangan terbaru dari dunia profesional Anda
           </p>
         </div>
-        <form onSubmit={handleSubmit} className='space-y-4 mt-6'>
+        <form className='space-y-4 mt-6'>
+          {errorMessage && (
+            <div className='bg-red-500 px-4 py-4 rounded-md w-full'>
+              <span className='block text-white font-semibold tracking-tight'>
+                {'Masukan email dan password dengan bener!'}
+              </span>
+            </div>
+          )}
           <AuthInput label='Email' name='email' value={data.email} onChange={handleChange} />
           <AuthInput
             label='Kata Sandi'
@@ -82,7 +98,7 @@ const Signin = () => {
               onClick={handleSubmit}
               className='block w-full py-3 focus:outline-none bg-[#0a66c2] rounded-full font-semibold text-white'
             >
-              Login
+              {loginLoading ? 'Loading...' : 'Login'}
             </button>
             <div className='flex items-center justify-center space-x-4'>
               <div className='h-[1px] bg-gray-400 w-full flex-grow-0' />

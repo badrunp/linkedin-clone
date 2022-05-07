@@ -1,4 +1,5 @@
 import { buttonMenuItem } from '../data/main';
+import { useAuth } from '../hooks/authContext';
 import DropdownState from '../hooks/DropdownState';
 import CarretDown from './icon/CarretDown';
 import PhotoProfil from './PhotoProfil';
@@ -18,13 +19,14 @@ const DropdownSortingMenuItem = ({ title, active = false }) => {
 
 const MainCenter = () => {
   const [dropdownSorting, dropdownSortingOpen, _, dropdownSortingRef] = DropdownState();
+  const { user } = useAuth();
 
   return (
     <div className='flex-none w-full sm:w-[524px] md:w-[493px] lg:w-[432px] xl:w-[540px]'>
       <div className='flex flex-col space-y-2'>
         <div className='bg-white ring-1 ring-gray-200 shadow-sm rounded-md w-full pt-3 pb-2 px-4 space-y-2'>
           <div className='flex items-center space-x-2'>
-            <PhotoProfil />
+            <PhotoProfil url={user?.photo} />
             <button className='block text-gray-500 hover:bg-zinc-200 hover:bg-opacity-80 transition font-semibold flex-grow-0 w-full h-12 px-4 border border-zinc-400 text-left text-sm rounded-full focus:outline-none'>
               Mulai buat posting
             </button>
@@ -65,10 +67,6 @@ const MainCenter = () => {
           )}
         </div>
 
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
         <PostCard />
       </div>
     </div>

@@ -1,7 +1,8 @@
 import { onAuthStateChanged } from 'firebase/auth';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { auth } from '../firebase';
+import db, { auth } from '../firebase';
 import { useRouter } from 'next/router';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 export const AuthContext = createContext(null);
 
@@ -16,10 +17,24 @@ export const AuthProvider = ({ children }) => {
     if (!user) {
       onAuthStateChanged(auth, async (userLogin) => {
         if (userLogin) {
-          setUser({
-            uid: userLogin.uid,
-            email: userLogin.email,
-          });
+          const docSnap = await getDoc(doc(db, 'users', userLogin.email));
+          if (docSnap.exists()) {
+            const { email, photo } = docSnap.data();
+            setUser({
+              email: email,
+              photo: photo,
+            });
+          } else {
+            const dataUser = {
+              email: userLogin.email,
+              photo: userLogin.photoURL
+                ? userLogin.photoURL
+                : `images/profil-${Math.ceil(Math.random() * 5)}.jpg`,
+            };
+            await setDoc(doc(db, 'users', userLogin.email), dataUser);
+            setUser(dataUser);
+          }
+
           if (router.pathname === '/signin' || router.pathname === '/signup') {
             await router.replace('/');
             return;
